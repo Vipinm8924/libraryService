@@ -3,8 +3,8 @@ package com.example.LibraryService.dtos;
 import lombok.Data;
 
 @Data
-public class Book {
-    private Integer id;
+public class BookResponse {
+    private Integer bookId;
     private String bookName;
     private String authorName;
     private String publicationName;

@@ -14,6 +14,5 @@ public class LibraryResponse {
     private String ownerName;
     private int totalBooks;
     private int totalMembers;
-    private Book book;
-    private List<Book> books;
+    private List<BookResponse> books;
 }
