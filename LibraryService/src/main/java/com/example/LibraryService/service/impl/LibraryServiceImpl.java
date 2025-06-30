@@ -4,7 +4,9 @@ import com.example.LibraryService.entity.Library;
 import com.example.LibraryService.repo.LibraryRepo;
 import com.example.LibraryService.service.interfaceService.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class LibraryServiceImpl implements LibraryService {
 
     @Autowired

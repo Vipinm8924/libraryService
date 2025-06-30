@@ -5,9 +5,11 @@ import com.example.LibraryService.dtos.BookResponse;
 import com.example.LibraryService.service.HttpService;
 import com.example.LibraryService.service.interfaceService.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class BookServiceImpl implements BookService {
 
     @Autowired
@@ -26,14 +28,20 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookResponse saveBook(BookRequest bookRequest) {
-        BookResponse bookResponse = httpService.saveBookHttp(bookRequest);
+    public BookResponse saveBook(
+            Integer libraryId, String libraryName,
+            BookRequest bookRequest) {
+        BookResponse bookResponse = httpService.saveBookHttp(
+                libraryId, libraryName, bookRequest);
         return bookResponse;
     }
 
     @Override
-    public BookResponse updateBook(BookRequest bookRequest) {
-        BookResponse bookResponse = httpService.updateBookHttp(bookRequest);
+    public BookResponse updateBook(
+            Integer libraryId, String libraryName,
+            BookRequest bookRequest) {
+        BookResponse bookResponse = httpService.updateBookHttp(
+                libraryId, libraryName, bookRequest);
         return bookResponse;
     }
 
@@ -62,14 +70,20 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookResponse> saveBookList(List<BookRequest> bookRequestList) {
-        List<BookResponse> bookResponseList = httpService.saveBookListHttp(bookRequestList);
+    public List<BookResponse> saveBookList(
+            Integer libraryId, String libraryName,
+            List<BookRequest> bookRequestList) {
+        List<BookResponse> bookResponseList = httpService.saveBookListHttp(
+                libraryId, libraryName, bookRequestList);
         return bookResponseList;
     }
 
     @Override
-    public List<BookResponse> updateBookList(List<BookRequest> bookRequestList) {
-        List<BookResponse> bookResponseList = httpService.updateBookListHttp(bookRequestList);
+    public List<BookResponse> updateBookList(
+            Integer libraryId, String libraryName,
+            List<BookRequest> bookRequestList) {
+        List<BookResponse> bookResponseList = httpService.updateBookListHttp(
+                libraryId, libraryName, bookRequestList);
         return bookResponseList;
     }
 

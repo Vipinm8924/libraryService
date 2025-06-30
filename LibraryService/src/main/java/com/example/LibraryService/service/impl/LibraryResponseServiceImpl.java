@@ -8,9 +8,11 @@ import com.example.LibraryService.service.interfaceService.BookService;
 import com.example.LibraryService.service.interfaceService.LibraryResponseService;
 import com.example.LibraryService.service.interfaceService.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class LibraryResponseServiceImpl implements LibraryResponseService {
 
     @Autowired
@@ -61,7 +63,8 @@ public class LibraryResponseServiceImpl implements LibraryResponseService {
                 .build();
         Library saved = libraryService.saveLibrary(library);
 
-        List<BookResponse> bookResponseList = bookService.saveBookList(libraryRequest.getBooks());
+        List<BookResponse> bookResponseList = bookService.saveBookList(
+                libraryRequest.getLibraryId(), libraryRequest.getLibraryName(), libraryRequest.getBooks());
 
         LibraryResponse libraryResponse = LibraryResponse.builder()
                 .books(bookResponseList)
@@ -85,7 +88,8 @@ public class LibraryResponseServiceImpl implements LibraryResponseService {
                 .ownerName(libraryRequest.getOwnerName())
                 .build();
         Library updated = libraryService.updateLibrary(library);
-        List<BookResponse> bookResponseList = bookService.updateBookList(libraryRequest.getBooks());
+        List<BookResponse> bookResponseList = bookService.updateBookList(
+                libraryRequest.getLibraryId(), libraryRequest.getLibraryName(), libraryRequest.getBooks());
 
         LibraryResponse libraryResponse = LibraryResponse.builder()
                 .books(bookResponseList)

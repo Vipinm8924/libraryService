@@ -5,10 +5,12 @@ import com.example.LibraryService.dtos.BookResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
+@Service
 public class HttpService {
 
     public static String baseUrl = "http://localhost:8081/psit/";
@@ -18,7 +20,7 @@ public class HttpService {
     RestTemplate restTemplate;
 
     public BookResponse getBookByBookIdHttp(int bookId) {
-        String apiPath = "/book/{bookId}";
+        String apiPath = "/book/fetchByBookId/{bookId}";
         String apiUrl = baseUrl + apiPath;
         ResponseEntity<BookResponse> response = restTemplate.exchange(
                 apiUrl,
@@ -33,7 +35,7 @@ public class HttpService {
     }
 
     public BookResponse getBookByBookNameHttp(String bookName) {
-        String apiPath = "/book/{bookName}";
+        String apiPath = "/book/fetchByBookName/{bookName}";
         String apiUrl = baseUrl + apiPath;
         ResponseEntity<BookResponse> response = restTemplate.exchange(
                 apiUrl,
@@ -46,9 +48,11 @@ public class HttpService {
         return bookResponse;
     }
 
-    public BookResponse saveBookHttp(BookRequest bookRequest) {
-        String apiPath = "/book/insert";
-        String apiUrl = baseUrl + apiPath;
+    public BookResponse saveBookHttp(
+            Integer libraryId, String libraryName,
+            BookRequest bookRequest) {
+        String apiPath = "/book/save";
+        String apiUrl = baseUrl + apiPath + "?libraryId=" + libraryId + "&libraryName=" + libraryName;
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -65,9 +69,12 @@ public class HttpService {
         return bookResponse;
     }
 
-    public BookResponse updateBookHttp(BookRequest bookRequest) {
+    public BookResponse updateBookHttp(
+            Integer libraryId, String libraryName,
+            BookRequest bookRequest) {
         String apiPath = "/book/update";
-        String apiUrl = baseUrl + apiPath;
+        String apiUrl = baseUrl + apiPath + "?libraryId=" + libraryId + "&libraryName=" + libraryName;
+
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -84,7 +91,7 @@ public class HttpService {
     }
 
     public void deleteBookByBookIdHttp(int bookId) {
-        String apiPath = "/book/{bookId}";
+        String apiPath = "/book/deleteByBookId/{bookId}";
         String apiUrl = baseUrl + apiPath;
         ResponseEntity<Void> response = restTemplate.exchange(
                 apiUrl,
@@ -97,7 +104,7 @@ public class HttpService {
     }
 
     public void deleteBookByBookNameHttp(String bookName) {
-        String apiPath = "/book/{bookName}";
+        String apiPath = "/book/deleteByBookName/{bookName}";
         String apiUrl = baseUrl + apiPath;
         ResponseEntity<Void> response = restTemplate.exchange(
                 apiUrl,
@@ -110,7 +117,7 @@ public class HttpService {
     }
 
     public List<BookResponse> getBookListByLibraryIdHttp(int libraryId) {
-        String apiPath = "/bookListByLibraryId/{libraryId}";
+        String apiPath = "/bookList/fetchByLibraryId/{libraryId}";
         String apiUrl = baseUrl + apiPath;
         ResponseEntity<List<BookResponse>> response = restTemplate.exchange(
                 apiUrl,
@@ -126,7 +133,7 @@ public class HttpService {
     }
 
     public List<BookResponse> getBookListByLibraryNameHttp(String libraryName) {
-        String apiPath = "/bookListByLibraryName/{libraryName}";
+        String apiPath = "/bookList/fetchByLibraryName/{libraryName}";
         String apiUrl = baseUrl + apiPath;
         ResponseEntity<List<BookResponse>> response = restTemplate.exchange(
                 apiUrl,
@@ -141,9 +148,11 @@ public class HttpService {
         return bookResponse;
     }
 
-    public List<BookResponse> saveBookListHttp(List<BookRequest> bookRequestList) {
-        String apiPath = "/bookList/insert";
-        String apiUrl = baseUrl + apiPath;
+    public List<BookResponse> saveBookListHttp(
+            int libraryId, String libraryName,
+            List<BookRequest> bookRequestList) {
+        String apiPath = "/bookList/save";
+        String apiUrl = baseUrl + apiPath + "?libraryId=" + libraryId + "&libraryName=" + libraryName;
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -156,14 +165,15 @@ public class HttpService {
                 new ParameterizedTypeReference<List<BookResponse>>() {
                 }
         );
-
-        List<BookResponse> bookResponse = response.getBody();
-        return bookResponse;
+        return response.getBody();
     }
 
-    public List<BookResponse> updateBookListHttp(List<BookRequest> bookRequestList) {
+    public List<BookResponse> updateBookListHttp(
+            Integer libraryId, String libraryName,
+            List<BookRequest> bookRequestList) {
         String apiPath = "/bookList/update";
-        String apiUrl = baseUrl + apiPath;
+        String apiUrl = baseUrl + apiPath + "?libraryId=" + libraryId + "&libraryName=" + libraryName;
+
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -182,7 +192,7 @@ public class HttpService {
     }
 
     public void deleteBookListByLibraryIdHttp(int libraryId) {
-        String apiPath = "/bookList/{libraryId}";
+        String apiPath = "/bookList/deleteByLibraryId/{libraryId}";
         String apiUrl = baseUrl + apiPath;
         ResponseEntity<Void> response = restTemplate.exchange(
                 apiUrl,
@@ -196,7 +206,7 @@ public class HttpService {
 
 
     public void deleteBookListByLibraryNameHttp(String libraryName) {
-        String apiPath = "/bookList/{libraryName}";
+        String apiPath = "/bookList/deleteByLibraryName/{libraryName}";
         String apiUrl = baseUrl + apiPath;
         ResponseEntity<Void> response = restTemplate.exchange(
                 apiUrl,

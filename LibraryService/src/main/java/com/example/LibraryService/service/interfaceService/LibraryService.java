@@ -1,7 +1,9 @@
 package com.example.LibraryService.service.interfaceService;
 
 import com.example.LibraryService.entity.Library;
+import org.springframework.stereotype.Service;
 
+@Service
 public interface LibraryService {
 
     Library getLibraryByLibraryId(int libraryId);

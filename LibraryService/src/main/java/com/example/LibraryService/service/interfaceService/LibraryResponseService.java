@@ -2,7 +2,9 @@ package com.example.LibraryService.service.interfaceService;
 
 import com.example.LibraryService.dtos.LibraryRequest;
 import com.example.LibraryService.dtos.LibraryResponse;
+import org.springframework.stereotype.Service;
 
+@Service
 public interface LibraryResponseService {
 
     LibraryResponse getLibraryByLibraryId(int libraryId);
